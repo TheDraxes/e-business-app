@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'api-call';
+  searchValue: string;
+
+  onEnterPressed(event: any) {
+    this.searchValue = event.target.value;
+  }
+}
+
+export enum KEY_CODE {
+  ENTER = 13,
 }

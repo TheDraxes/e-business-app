@@ -4,4 +4,4 @@
 
 <button (click)="getWeatherByTownName()">GO</button>
 
-<p>Temperatur in {{name}}: {{data.main.temp}}</p>
+<p *ngIf="data">Temperatur in {{name}}: {{data.main.temp}}</p>
