@@ -1,4 +1,46 @@
-<p>fetch-weather works!</p>
-
-<p *ngIf="data">{{data.name}}</p>
+<!-- <p *ngIf="data">{{data.name}}</p>
 <p *ngIf="data">Temperatur in {{data.name}}: {{data.main.temp}}</p>
+<p *ngIf="data">{{data.weather[0].icon}}</p>
+<p *ngIf="data">{{data.coord.lon}}</p>
+<p *ngIf="data">{{data}}</p> -->
+
+
+<div class="card" *ngIf="data">
+
+  <div class="card-header">
+    {{data.name}} - {{data.weather[0].description}}
+  </div>
+
+  <div class="row ">
+
+    <div class="col-md-1">
+      <img src="{{iconUrl}}" class="card-img" alt="...">
+    </div>
+
+    <div class="col-md-11">
+
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-auto">
+            {{data.main.temp}} C°
+          </div>
+          <div class="col-auto">
+            gefühlt: {{data.main.feels_like}} C°
+          </div>
+          <div class="col-auto">
+            Sonnenaufgang: {{convertTimestamp(data.sys.sunrise)}}
+          </div>
+          <div class="col-auto">
+            Sonnenuntergang: {{convertTimestamp(data.sys.sunset)}}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
