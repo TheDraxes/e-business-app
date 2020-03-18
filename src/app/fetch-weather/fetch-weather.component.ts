@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { OwmApiService } from '../owm-api.service';
 
 @Component({
@@ -8,8 +8,12 @@ import { OwmApiService } from '../owm-api.service';
 })
 export class FetchWeatherComponent implements OnInit {
 
-  data;
-  name;
+  data: any;
+
+  @Input() set name(value: string) {
+    this.getWeatherByTownName(value);
+    console.log(this.data);
+  }
 
   constructor(private owmApiService: OwmApiService) { }
 
@@ -17,8 +21,8 @@ export class FetchWeatherComponent implements OnInit {
 
   }
 
-  getWeatherByTownName() {
-    this.owmApiService.getDataByTownName(this.name).subscribe((data) => {
+  getWeatherByTownName(name: string) {
+    this.owmApiService.getDataByTownName(name).subscribe((data) => {
       console.log(data);
       this.data = data;
     });

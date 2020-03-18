@@ -1,7 +1,4 @@
 <p>fetch-weather works!</p>
 
-<input type="text" [(ngModel)]="name" >
-
-<button (click)="getWeatherByTownName()">GO</button>
-
-<p *ngIf="data">Temperatur in {{name}}: {{data.main.temp}}</p>
+<p *ngIf="data">{{data.name}}</p>
+<p *ngIf="data">Temperatur in {{data.name}}: {{data.main.temp}}</p>

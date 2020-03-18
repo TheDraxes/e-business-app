@@ -12,6 +12,7 @@ export class OwmApiService {
   constructor(private httpClient: HttpClient) { }
 
   public getDataByTownName(name: string) {
-    return this.httpClient.get(`http://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${this.API_KEY}&units=metric`);
+    return this.httpClient.get(`http://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${this.API_KEY}&units=metric&lang=de`);
   }
+
 }
