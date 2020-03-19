@@ -1,0 +1,24 @@
+<div class="card" *ngIf="geodata">
+    {{geodata.name}} <br>
+    {{geodata.country}} <br>
+    {{geodata.lat}} <br>
+    {{geodata.lon}} <br>
+    {{geodata.population}} <br>
+    {{geodata.timezone}} <br>
+    {{geodata.status}} <br>
+</div>
+<div class="card" *ngIf="objectList">
+    <div *ngFor="let object of objectList.features">
+        <div *ngIf="object.properties.name != ''">
+            <b>{{object.properties.name}}</b><br>
+            {{object.properties.xid}} <br>
+        </div>
+    </div>
+</div>
+<div class="card" *ngIf="details">
+    {{details.name}} <br>
+    {{details.address.city}} <br>
+    {{details.address.road}} <br>
+    {{details.address.state}} <br>
+    <img src="{{details.image}}"> <br>
+</div>

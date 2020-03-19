@@ -34,9 +34,10 @@
       </div>
     </nav>
 
-    <!-- Conteiner für die 2 API Komponenten-->
+    <!-- Container für die 2 API Komponenten-->
     <div class="container">
       <app-fetch-weather [name]="searchValue"></app-fetch-weather>
+      <app-open-trip-map [name]="searchValue"></app-open-trip-map>
     </div>
 
 </div>
