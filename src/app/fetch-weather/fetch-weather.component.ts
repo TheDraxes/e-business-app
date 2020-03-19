@@ -32,10 +32,8 @@ export class FetchWeatherComponent implements OnInit {
   }
 
   extractIconUrl() {
-    const iconID = this.data.weather[0].icon;
-    const iconUrl = `http://openweathermap.org/img/wn/${iconID}@2x.png`;
-
-    return iconUrl;
+    const iconID  = this.data.weather[0].icon;
+    return `http://openweathermap.org/img/wn/${iconID}@2x.png`;
   }
 
   convertTimestamp(timeStamp: any) {
