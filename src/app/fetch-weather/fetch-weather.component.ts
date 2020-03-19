@@ -27,7 +27,10 @@ export class FetchWeatherComponent implements OnInit {
     this.owmApiService.getDataByTownName(name).subscribe(
       data => { this.data = data; },
       err  => {},
-      ()   => { this.iconUrl = this.extractIconUrl(); console.log(this.data); }
+      ()   => { 
+        this.iconUrl = this.extractIconUrl(); 
+        console.log(this.data); 
+      }
     );
   }
 
