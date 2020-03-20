@@ -1,24 +1,19 @@
 <div class="card" *ngIf="geodata">
-    {{geodata.name}} <br>
-    {{geodata.country}} <br>
-    {{geodata.lat}} <br>
-    {{geodata.lon}} <br>
-    {{geodata.population}} <br>
-    {{geodata.timezone}} <br>
-    {{geodata.status}} <br>
+    {{geodata.name}} - {{geodata.country}} <br>
+    Koordinaten: (lon) {{geodata.lon}}  (lat) {{geodata.lat}}  <br>
+    Einwohnerzahl: {{geodata.population}} <br>
+    Zeitzone: {{geodata.timezone}}
 </div>
 <div class="card" *ngIf="objectList">
-    <div *ngFor="let object of objectList.features">
-        <div *ngIf="object.properties.name != ''">
-            <b>{{object.properties.name}}</b><br>
-            {{object.properties.xid}} <br>
-        </div>
+  <div *ngFor="let object of objectList.features">
+    <div *ngIf="object.properties.name != ''">
+      <b>Name: {{object.properties.name}}</b><br>
+      Bewertung: {{object.properties.rate}} <br>
+      <div *ngIf="object.details">
+        Details: {{object.details.info}} <br>
+        {{object.details.wikipedia}} <br>
+        <img src="{{object.details.image}}"><br>
+      </div>
     </div>
-</div>
-<div class="card" *ngIf="details">
-    {{details.name}} <br>
-    {{details.address.city}} <br>
-    {{details.address.road}} <br>
-    {{details.address.state}} <br>
-    <img src="{{details.image}}"> <br>
+  </div>
 </div>

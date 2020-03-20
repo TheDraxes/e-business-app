@@ -10,7 +10,6 @@ export class OpenTripMapComponent implements OnInit {
 
   geodata: any;
   objectList: any;
-  details: any;
 
   @Input() set name(value: string) {
     if (value) {
@@ -41,26 +40,33 @@ export class OpenTripMapComponent implements OnInit {
     const radius = '1000';
 
     const method = 'radius';
-    const params: string = '?radius=' + radius + '&lon=' + this.geodata.lon + '&lat=' + this.geodata.lat;
+    const params: string = '?radius=' + radius + '&lon=' + this.geodata.lon + '&lat=' + this.geodata.lat + "&rate=3";
 
     this.otmApiService.getData(method, params).subscribe(
       objectList => { this.objectList = objectList; },
       err  => {},
       ()   => {
-        this.getDetails(this.objectList.features[2].properties.xid);
-        console.log(this.objectList);
+        // Filtern der Liste nach Bewertungen
+        this.objectList.features = this.objectList.features.sort((a, b) => {
+          return b.properties.rate - a.properties.rate;
+        });
+        this.getAllDetails()
       }
     );
   }
 
-  getDetails(xid: string) {
+  getAllDetails() {
+    this.getDetails(this.objectList.features[5]);
+  }
+
+  // Methode, mit welcher zu einem bestimmten Ort die Details abgerufen werden
+  getDetails(object: any) {
     const method = 'xid/';
 
-    this.otmApiService.getDetails(method, xid).subscribe(
-      details => { this.details = details; },
+    this.otmApiService.getDetails(method, object.properties.xid).subscribe(
+      details => { object.details = details; },
       err  => {},
       ()   => {
-        console.log(this.details);
       }
     );
   }
