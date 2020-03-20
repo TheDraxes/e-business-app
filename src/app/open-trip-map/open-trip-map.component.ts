@@ -24,43 +24,43 @@ export class OpenTripMapComponent implements OnInit {
   }
 
   getGeodata(name: string) {
-    let method: string = "geoname";
-    let params: string = "?name=" + name;
+    const method = 'geoname';
+    const params: string = '?name=' + name;
 
     this.otmApiService.getData(method, params).subscribe(
       geodata => { this.geodata = geodata; },
       err  => {},
       ()   => {
         this.getRadius();
-        console.log(this.geodata); 
+        console.log(this.geodata);
       }
     );
   }
 
   getRadius() {
-    let radius: string = "1000";
+    const radius = '1000';
 
-    let method: string = "radius";
-    let params: string = "?radius=" + radius + "&lon=" + this.geodata.lon + "&lat=" + this.geodata.lat;
+    const method = 'radius';
+    const params: string = '?radius=' + radius + '&lon=' + this.geodata.lon + '&lat=' + this.geodata.lat;
 
     this.otmApiService.getData(method, params).subscribe(
       objectList => { this.objectList = objectList; },
       err  => {},
       ()   => {
         this.getDetails(this.objectList.features[2].properties.xid);
-        console.log(this.objectList); 
+        console.log(this.objectList);
       }
     );
   }
 
   getDetails(xid: string) {
-    let method: string = "xid/";
+    const method = 'xid/';
 
     this.otmApiService.getDetails(method, xid).subscribe(
       details => { this.details = details; },
       err  => {},
       ()   => {
-        console.log(this.details); 
+        console.log(this.details);
       }
     );
   }
