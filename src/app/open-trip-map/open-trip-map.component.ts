@@ -50,7 +50,7 @@ export class OpenTripMapComponent implements OnInit {
         this.objectList.features = this.objectList.features.sort((a, b) => {
           return b.properties.rate - a.properties.rate;
         });
-        this.getAllDetails()
+        this.getAllDetails();
       }
     );
   }
