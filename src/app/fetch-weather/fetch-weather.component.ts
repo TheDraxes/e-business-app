@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OwmApiService } from '../owm-api.service';
+import { Forecast } from './forecast';
 
 @Component({
   selector: 'app-fetch-weather',
@@ -8,12 +9,16 @@ import { OwmApiService } from '../owm-api.service';
 })
 export class FetchWeatherComponent implements OnInit {
 
-  data: any;
+  currentData: any;
+  forecastData: any;
+  extractedForecastData: Forecast[] = [];
   iconUrl: string;
 
   @Input() set name(value: string) {
     if (value) {
+      this.extractedForecastData = [];
       this.getWeatherByTownName(value);
+      this.getForecastDataByTownName(value);
     }
   }
 
@@ -23,20 +28,52 @@ export class FetchWeatherComponent implements OnInit {
 
   }
 
-  getWeatherByTownName(name: string) {
-    this.owmApiService.getDataByTownName(name).subscribe(
-      data => { this.data = data; },
+  getForecastDataByTownName(name: string) {
+    this.owmApiService.getForecastDataByTownName(name).subscribe(
+      data => { this.forecastData = data; },
       err  => {},
-      ()   => { 
-        this.iconUrl = this.extractIconUrl(); 
-        console.log(this.data); 
+      ()   => {
+        console.log(this.forecastData);
+        this.extractImpData();
       }
     );
   }
 
-  extractIconUrl() {
-    const iconID  = this.data.weather[0].icon;
+  getWeatherByTownName(name: string) {
+    this.owmApiService.getDataByTownName(name).subscribe(
+      data => { this.currentData = data; },
+      err  => {},
+      ()   => {
+        console.log(this.currentData);
+      }
+    );
+  }
+
+  extractIconUrl(iconID: string) {
     return `http://openweathermap.org/img/wn/${iconID}@2x.png`;
+  }
+
+  extractImpData() {
+    let count = 0;
+
+    this.forecastData.list.forEach(forecast => {
+      /* console.log(new Date(forecast.dt_txt).toLocaleDateString()); */
+      console.log(forecast.main.feels_like);
+
+      const nf = new Forecast(
+        forecast.main.temp,
+        forecast.main.feels_like,
+        forecast.weather[0].description,
+        forecast.weather[0].icon,
+        new Date(forecast.dt_txt),
+        );
+
+      if (nf.day.getHours() === 12) {
+        this.extractedForecastData.push(nf);
+      }
+      count++;
+
+    });
   }
 
   convertTimestamp(timeStamp: any) {

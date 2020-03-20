@@ -15,4 +15,8 @@ export class OwmApiService {
     return this.httpClient.get(`http://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${this.API_KEY}&units=metric&lang=de`);
   }
 
+  public getForecastDataByTownName(name: string) {
+    return this.httpClient.get(`http://api.openweathermap.org/data/2.5/forecast?q=${name}&units=metric&lang=de&appid=${this.API_KEY}`);
+  }
+
 }
