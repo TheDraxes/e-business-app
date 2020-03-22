@@ -50,23 +50,26 @@ export class OpenTripMapComponent implements OnInit {
         this.objectList.features = this.objectList.features.sort((a, b) => {
           return b.properties.rate - a.properties.rate;
         });
-        this.getAllDetails();
+        console.log(this.objectList);
+        this.getDetailsRekursiv(8, 0);
       }
     );
   }
 
-  getAllDetails() {
-    this.getDetails(this.objectList.features[5]);
-  }
+  getDetailsRekursiv(anzahl: number, counter: number) {
+    console.log("Insgesamt: " + anzahl + "    Aktuell: " + counter);
 
-  // Methode, mit welcher zu einem bestimmten Ort die Details abgerufen werden
-  getDetails(object: any) {
     const method = 'xid/';
 
-    this.otmApiService.getDetails(method, object.properties.xid).subscribe(
-      details => { object.details = details; },
+    this.otmApiService.getDetails(method, this.objectList.features[counter].properties.xid).subscribe(
+      details => { this.objectList.features[counter].details = details; },
       err  => {},
       ()   => {
+        console.log(this.objectList.features[counter].details)
+        counter++;
+        if(counter < anzahl) {
+          this.getDetailsRekursiv(anzahl, counter);
+        }
       }
     );
   }

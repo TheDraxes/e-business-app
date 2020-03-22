@@ -4,16 +4,43 @@
     Einwohnerzahl: {{geodata.population}} <br>
     Zeitzone: {{geodata.timezone}}
 </div>
-<div class="card" *ngIf="objectList">
-  <div *ngFor="let object of objectList.features">
+
+
+<div *ngIf="objectList">
+
+  <accordion *ngFor="let object of objectList.features">
+    
     <div *ngIf="object.properties.name != ''">
-      <b>Name: {{object.properties.name}}</b><br>
-      Bewertung: {{object.properties.rate}} <br>
-      <div *ngIf="object.details">
-        Details: {{object.details.info}} <br>
-        {{object.details.wikipedia}} <br>
-        <img src="{{object.details.image}}"><br>
-      </div>
+
+      <accordion-group heading="{{object.properties.name}}">
+
+        <div class="row">
+            <a href="https://opentripmap.com/en/card/{{object.properties.xid}}" class="card-img" target="_blank">Details</a>
+        </div>
+
+        <div *ngIf="object.details">
+          <div class="row">
+            Bewertung: {{object.properties.rate}}
+          </div>
+
+          <div *ngIf="object.details.address">
+            <div class="row">
+              Adresse:
+            </div>
+            <div class="row">
+              {{object.details.address.postcode}} {{object.details.address.city}}
+            </div>
+            <div class="row">
+              {{object.details.address.road}} {{object.details.address.pedestrian}} {{object.details.address.house_number}}
+            </div>
+          </div>
+
+        </div>
+
+      </accordion-group>
+
     </div>
-  </div>
+
+  </accordion>
+
 </div>
